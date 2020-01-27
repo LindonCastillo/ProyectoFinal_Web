@@ -13,7 +13,7 @@ namespace ProyectoFinal_Web.Data
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
-            optionsBuilder.UseSqlServer(@"Server = .\SqlExpress; Database= PFTest_Db; Trusted_Connection = True;");
+            optionsBuilder.UseSqlServer(@"Server = .\SqlExpress; Database= PFTest_Db; Trusted_Connection = True; ");
         }
     }
 }

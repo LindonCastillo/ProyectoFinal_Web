@@ -1,4 +1,4 @@
-﻿@page "/RegistroProductos"
+﻿@page "/RegistroProductos/{Id:int}"
 
 @using ProyectoFinal_Web.BLL;
 @using ProyectoFinal_Web.Data;
@@ -70,32 +70,27 @@
         <h4>Registro de Productos</h4>
         <h5 class="form-text text-muted">@Mensaje</h5>
 
-        <div class="form-group">
+        <div>
             <label for="Nombres">Nombre</label>
-            <input type="text" class="controls" id="formGroupExampleInput" @bind-value="@productos.Nombre">
-        </div>
+            <input type="text" class="controls" id="formGroupExampleInput" @bind-value="@Productos.Nombre">
 
-        <div class="form-group">
             <label for="Cantidad_number">Cantidad</label>
-            <input type="number" class="controls" id="Cantidad_number" @bind-value="@productos.Cantidad">
-        </div>
-        <div class="form-group">
+            <input type="number" class="controls" id="Cantidad_number" @bind-value="@Productos.Cantidad">
+
             <label for="PrecioC_number">Precio de Compra</label>
-            <input type="number" class="controls" id="PrecioC_number" @bind-value="@productos.PrecioCompra">
-        </div>
+            <input type="number" class="controls" id="PrecioC_number" @bind-value="@Productos.PrecioCompra">
 
-        <div class="form-group">
             <label for="PrecioV_number">Precio de Venta</label>
-            <input type="number" class="controls" id="PrecioV_number" @bind-value="@productos.PrecioVenta">
-        </div>
+            <input type="number" class="controls" id="PrecioV_number" @bind-value="@Productos.PrecioVenta">
 
-        <div class="form-group">
             <label for="Itbis_number">Itbis</label>
-            <input type="number" class="controls" id="Itbis_number" @bind-value="@productos.Itbis">
+            <input type="number" class="controls" id="Itbis_number" @bind-value="@Productos.Itbis">
+
+
+            <input class="botons" type="submit" value="Guardar" @onclick="Guardar">
+            <br />
         </div>
 
-        <input class="botons" type="submit" value="Guardar" @onclick="Guardar">
-        <br />
 
     </section>
 </div>
@@ -106,7 +101,7 @@
     public int Id { get; set; }
     public string Mensaje { get; set; }
 
-    Productos productos = new Productos();
+    Productos Productos = new Productos();
 
     protected override async Task OnInitializedAsync()
     {
@@ -115,7 +110,7 @@
         Mensaje = string.Empty;
         if(Id != 0)
         {
-            productos = db.Buscar(Id);
+            Productos = db.Buscar(Id);
         }
     }
 
@@ -129,7 +124,7 @@
 
     private void Limpiar()
     {
-        productos = new Productos();
+        Productos = new Productos();
         Mensaje = string.Empty;
     }
 
@@ -145,16 +140,17 @@
         {
             try
             {
-                if(productos.ProductoId > 0)
+                if(Productos.ProductoId > 0)
                 {
-                    db.Modificar(productos);
+                    db.Modificar(Productos);
                     Limpiar();
                     Mensaje = "Se ha Modificado el Producto";
                 }
                 else
                 {
-                    db.Guardar(productos);
-                    productos = new Productos();
+                    db.Guardar(Productos);
+                    Limpiar();
+                    Productos = new Productos();
                     Mensaje = "Se ha Guardado Correctamente";
                 }
             }
