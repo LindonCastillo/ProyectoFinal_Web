@@ -1,0 +1,69 @@
+﻿@page "/ListaProductos"
+
+@using ProyectoFinal_Web.BLL;
+@using ProyectoFinal_Web.Data;
+@using ProyectoFinal_Web.Entidades;
+
+    <style>
+        .form-register th {
+            font-size: 22px;
+        }
+
+        .form-register td {
+            font-size: 20px;
+        }
+
+        .form-register a {
+            font-size: 20px;
+        }
+    </style>
+
+
+<h3>ListaProductos</h3>
+<div>
+    <table class="table table-dark">
+        <thead>
+            <tr>
+                <th scope="col">ProductoId</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Cantidad</th>
+                <th scope="col">Precio de Compra</th>
+                <th scope="col">Precio de Venta</th>
+                <th scope="col">Itbis</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Lista)
+            {
+                <tr>
+                    <td>@item.ProductoId</td>
+                    <td>@item.Nombre</td>
+                    <td>@item.Cantidad</td>
+                    <td>@item.PrecioCompra</td>
+                    <td>@item.PrecioVenta</td>
+                    <td>@item.Itbis</td>
+                    <td><a href="/RegistroProducto/@item.ProductoId">Editar</a>|<a href="">Eliminar</a></td>
+                </tr>    
+            }
+        </tbody>
+    </table>
+</div>
+
+
+@code {
+    public List<Productos> Lista { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            RepositorioBase<Productos> db = new RepositorioBase<Productos>();
+            Lista = db.GetList(P => true);
+        }
+        catch (Exception)
+        {
+
+            throw;
+        }
+    }
+}

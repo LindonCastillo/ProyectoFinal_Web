@@ -1,5 +1,10 @@
 ﻿@page "/RegistroProductos"
 
+@using ProyectoFinal_Web.BLL;
+@using ProyectoFinal_Web.Data;
+@using ProyectoFinal_Web.Entidades;
+
+
 <style>
     body {
         margin: 0;
@@ -8,7 +13,7 @@
     }
 
     .form-register {
-        width: 600px;
+        width: 500px;
         background: #222939;
         padding: 30px;
         margin: auto;
@@ -19,17 +24,17 @@
         box-shadow: 7px 13px 37px #000;
     }
 
-        .form-register h4 {
+    .form-register h4 {
             font-size: 22px;
             margin-bottom: 20px;
-        }
+    }
 
     .controls {
         width: 100%;
         background: #FFFFFF;
         padding: 10px;
         border-radius: 4px;
-        margin-bottom: 16px;
+        margin-bottom: 10px;
         border: 1px solid #000000;
         font-family: 'calibri';
         font-size: 18px;
@@ -54,25 +59,113 @@
         margin: 16px 0;
         font-size: 24px;
     }
+
+    .form-register .label {
+        font-size: 24px;
+    }
 </style>
 
 <div>
     <section class="form-register">
         <h4>Registro de Productos</h4>
+        <h5 class="form-text text-muted">@Mensaje</h5>
 
-        <input class="controls" type="text" name="nombres" id="Nombres" placeholder="Ingrese el Nombre">
-        <input type="datetime-local" class="controls form-control" id="Fecha" input />
-        <input class="controls" type="number" name="cantidad" id="Cantidad" placeholder="Ingrese la Cantidad" />
-        <input class="controls" type="number" name="precioC" id="PrecioCompra" placeholder="Ingrese el Precio de Compra">
-        <input class="controls" type="number" name="precioV" id="PrecioVenta" placeholder="Ingrese el Precio de Venta">
-        <input class="controls" type="number" name="itbis" id="Itbis" placeholder="Ingrese el Itbis">
-        <input class="botons" type="submit" value="Guardar">
-        <input class="botons2" type="submit" value="Ir a la Lista">
+        <div class="form-group">
+            <label for="Nombres">Nombre</label>
+            <input type="text" class="controls" id="formGroupExampleInput" @bind-value="@productos.Nombre">
+        </div>
+
+        <div class="form-group">
+            <label for="Cantidad_number">Cantidad</label>
+            <input type="number" class="controls" id="Cantidad_number" @bind-value="@productos.Cantidad">
+        </div>
+        <div class="form-group">
+            <label for="PrecioC_number">Precio de Compra</label>
+            <input type="number" class="controls" id="PrecioC_number" @bind-value="@productos.PrecioCompra">
+        </div>
+
+        <div class="form-group">
+            <label for="PrecioV_number">Precio de Venta</label>
+            <input type="number" class="controls" id="PrecioV_number" @bind-value="@productos.PrecioVenta">
+        </div>
+
+        <div class="form-group">
+            <label for="Itbis_number">Itbis</label>
+            <input type="number" class="controls" id="Itbis_number" @bind-value="@productos.Itbis">
+        </div>
+
+        <input class="botons" type="submit" value="Guardar" @onclick="Guardar">
         <br />
 
     </section>
 </div>
 
 @code {
+
+    [Parameter]
+    public int Id { get; set; }
+    public string Mensaje { get; set; }
+
+    Productos productos = new Productos();
+
+    protected override async Task OnInitializedAsync()
+    {
+        RepositorioBase<Productos> db = new RepositorioBase<Productos>();
+        Limpiar();
+        Mensaje = string.Empty;
+        if(Id != 0)
+        {
+            productos = db.Buscar(Id);
+        }
+    }
+
+    private bool Validacion()
+    {
+        bool paso = true;
+
+        return paso;
+
+    }
+
+    private void Limpiar()
+    {
+        productos = new Productos();
+        Mensaje = string.Empty;
+    }
+
+    private void Guardar()
+    {
+        RepositorioBase<Productos> db = new RepositorioBase<Productos>();
+
+        if (!Validacion())
+        {
+            return;
+        }
+        else
+        {
+            try
+            {
+                if(productos.ProductoId > 0)
+                {
+                    db.Modificar(productos);
+                    Limpiar();
+                    Mensaje = "Se ha Modificado el Producto";
+                }
+                else
+                {
+                    db.Guardar(productos);
+                    productos = new Productos();
+                    Mensaje = "Se ha Guardado Correctamente";
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+
+    }
 
 }

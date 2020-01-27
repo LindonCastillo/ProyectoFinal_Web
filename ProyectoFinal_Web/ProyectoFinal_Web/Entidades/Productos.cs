@@ -10,10 +10,12 @@ namespace ProyectoFinal_Web.Entidades
     {
         [Key]   
         public int ProductoId { get; set; }
+        [Required(ErrorMessage ="Debe Poner el Nombre del Producto")]
         public string Nombre { get; set; }
-        public DateTime Fecha { get; set; }
         public int Cantidad { get; set; }
+        [Required(ErrorMessage ="Debe Poner el Precio de Compra")]
         public decimal PrecioCompra { get; set; }
+        [Required(ErrorMessage = "Debe Poner el Precio de Venta")]
         public decimal PrecioVenta { get; set; }
         public int Itbis { get; set; }
 
@@ -21,7 +23,6 @@ namespace ProyectoFinal_Web.Entidades
         {
             ProductoId = 0;
             Nombre = string.Empty;
-            Fecha = DateTime.Now;
             Cantidad = 0;
             PrecioCompra = 0;
             PrecioVenta = 0;
