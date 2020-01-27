@@ -25,8 +25,8 @@
     }
 
     .form-register h4 {
-            font-size: 22px;
-            margin-bottom: 20px;
+        font-size: 22px;
+        margin-bottom: 20px;
     }
 
     .controls {
@@ -59,10 +59,6 @@
         margin: 16px 0;
         font-size: 24px;
     }
-
-    .form-register .label {
-        font-size: 24px;
-    }
 </style>
 
 <div>
@@ -72,19 +68,19 @@
 
         <div>
             <label for="Nombres">Nombre</label>
-            <input type="text" class="controls" id="formGroupExampleInput" @bind-value="@Productos.Nombre">
+            <input type="text" class="controls" id="formGroupExampleInput" @bind-value="@productos.Nombre">
 
             <label for="Cantidad_number">Cantidad</label>
-            <input type="number" class="controls" id="Cantidad_number" @bind-value="@Productos.Cantidad">
+            <input type="number" class="controls" id="Cantidad_number" @bind-value="@productos.Cantidad">
 
             <label for="PrecioC_number">Precio de Compra</label>
-            <input type="number" class="controls" id="PrecioC_number" @bind-value="@Productos.PrecioCompra">
+            <input type="number" class="controls" id="PrecioC_number" @bind-value="@productos.PrecioCompra">
 
             <label for="PrecioV_number">Precio de Venta</label>
-            <input type="number" class="controls" id="PrecioV_number" @bind-value="@Productos.PrecioVenta">
+            <input type="number" class="controls" id="PrecioV_number" @bind-value="@productos.PrecioVenta">
 
             <label for="Itbis_number">Itbis</label>
-            <input type="number" class="controls" id="Itbis_number" @bind-value="@Productos.Itbis">
+            <input type="number" class="controls" id="Itbis_number" @bind-value="@productos.Itbis">
 
 
             <input class="botons" type="submit" value="Guardar" @onclick="Guardar">
@@ -101,7 +97,7 @@
     public int Id { get; set; }
     public string Mensaje { get; set; }
 
-    Productos Productos = new Productos();
+    Productos productos = new Productos();
 
     protected override async Task OnInitializedAsync()
     {
@@ -110,7 +106,7 @@
         Mensaje = string.Empty;
         if(Id != 0)
         {
-            Productos = db.Buscar(Id);
+            productos = db.Buscar(Id);
         }
     }
 
@@ -124,7 +120,7 @@
 
     private void Limpiar()
     {
-        Productos = new Productos();
+        productos = new Productos();
         Mensaje = string.Empty;
     }
 
@@ -140,17 +136,17 @@
         {
             try
             {
-                if(Productos.ProductoId > 0)
+                if(productos.ProductoId > 0)
                 {
-                    db.Modificar(Productos);
+                    db.Modificar(productos);
                     Limpiar();
                     Mensaje = "Se ha Modificado el Producto";
                 }
                 else
                 {
-                    db.Guardar(Productos);
+                    db.Guardar(productos);
                     Limpiar();
-                    Productos = new Productos();
+                    productos = new Productos();
                     Mensaje = "Se ha Guardado Correctamente";
                 }
             }
