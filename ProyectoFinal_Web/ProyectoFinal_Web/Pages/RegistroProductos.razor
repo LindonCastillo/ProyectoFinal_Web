@@ -6,7 +6,7 @@
 
 
 <style>
-    body {
+0    body {
         margin: 0;
         padding: 0;
         box-sizing: border-box;
@@ -65,28 +65,29 @@
     <section class="form-register">
         <h4>Registro de Productos</h4>
         <h5 class="form-text text-muted">@Mensaje</h5>
-
-        <div>
+        <EditForm Model="@productos" OnValidSubmit="Guardar">
+            <DataAnnotationsValidator />
             <label for="Nombres">Nombre</label>
-            <input type="text" class="controls" id="formGroupExampleInput" @bind-value="@productos.Nombre">
+            <InputText class="controls" id="Nombre_text" @bind-Value="@productos.Nombre"></InputText> 
 
             <label for="Cantidad_number">Cantidad</label>
-            <input type="number" class="controls" id="Cantidad_number" @bind-value="@productos.Cantidad">
+            <InputNumber class="controls" @bind-Value="@productos.Cantidad"></InputNumber> 
 
             <label for="PrecioC_number">Precio de Compra</label>
-            <input type="number" class="controls" id="PrecioC_number" @bind-value="@productos.PrecioCompra">
+            <InputNumber class="controls" id="PrecioC_number" @bind-Value="@productos.PrecioCompra"></InputNumber>
 
             <label for="PrecioV_number">Precio de Venta</label>
-            <input type="number" class="controls" id="PrecioV_number" @bind-value="@productos.PrecioVenta">
+            <InputNumber class="controls" id="PrecioV_number" @bind-Value="@productos.PrecioVenta"> </InputNumber>
 
             <label for="Itbis_number">Itbis</label>
-            <input type="number" class="controls" id="Itbis_number" @bind-value="@productos.Itbis">
+            <InputNumber class="controls" id="Itbis_number" @bind-Value="@productos.Itbis"> </InputNumber>
 
+            <ValidationSummary />
 
-            <input class="botons" type="submit" value="Guardar" @onclick="Guardar">
+            <input class="botons" type="submit" value="Guardar">
             <br />
-        </div>
 
+        </EditForm>
 
     </section>
 </div>
