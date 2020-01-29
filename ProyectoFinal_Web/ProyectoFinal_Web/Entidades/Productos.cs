@@ -14,7 +14,7 @@ namespace ProyectoFinal_Web.Entidades
         public string Nombre { get; set; }
         public int Cantidad { get; set; }
         [Required]
-        [Range(minimum:1, maximum: 1000000000000000000, ErrorMessage = "El Precio De Compra No Puede Ser Cero")]
+        [Range(minimum: 1, maximum: 1000000000000000000, ErrorMessage = "El Precio De Compra No Puede Ser Cero")]
         public decimal PrecioCompra { get; set; }
         [Range(minimum: 1, maximum: 1000000000000000000, ErrorMessage = "El Precio De Venta No Puede Ser Cero")]
         public decimal PrecioVenta { get; set; }
